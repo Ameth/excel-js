@@ -123,6 +123,9 @@
       cell.computedValue = computeValue(value, constants) // --> span
       cell.value = value // --> input
 
+      // console.log('Data',cell);
+      
+
       newState[x][y] = cell
 
       computedAllCells(newState, generateCellsConstanst(newState))
@@ -137,7 +140,9 @@
         return rows.map((cell, y) => {
           const letter = getColumn(x) // --> A
           const cellId = `${letter}${y + 1}` // --> A1
-          return `const ${cellId} = ${cell.computedValue};`
+          const cellValue = typeof cell.computedValue === 'string' ? `'${cell.computedValue}'` : cell.computedValue
+          // console.log(cellValue)
+          return `const ${cellId} = ${cellValue};`
         }).join('\n')
       }).join('\n')
     }
@@ -210,6 +215,7 @@
     function removeSelected() {
       $$(`.selected`).forEach(el => el.classList.remove('selected'))
       selectedColumn = null
+      selectedRow = null
     }
 
     //Para seleccionar toda la fila
